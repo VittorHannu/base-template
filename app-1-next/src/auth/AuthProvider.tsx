@@ -9,11 +9,13 @@ const AuthContext = createContext<{ session: Session | null }>({ session: null }
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch the initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      setLoading(false);
     });
 
     // Listen for changes in auth state
@@ -25,7 +27,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // If session exists, render the protected content
+  // While checking for session, render nothing to prevent flashes
+  if (loading) {
+    return null;
+  }
+
   return (
     <AuthContext.Provider value={{ session }}>
       {children}

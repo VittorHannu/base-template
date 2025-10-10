@@ -1,10 +1,16 @@
-import Link from 'next/link';
+'use client';
+
+import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function TestPage() {
+interface TestPanelProps {
+  onGoBack: () => void;
+}
+
+const TestPanel: React.FC<TestPanelProps> = ({ onGoBack }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
       <h1 className="text-4xl font-bold mb-8">Shadcn UI Test Page</h1>
 
       <Card className="w-[350px] mb-8">
@@ -21,9 +27,9 @@ export default function TestPage() {
         </CardFooter>
       </Card>
 
-      <Link href="/">
-        <Button variant="destructive">Go Back</Button>
-      </Link>
+      <Button variant="destructive" onClick={onGoBack}>Go Back</Button>
     </div>
   );
-}
+};
+
+export default TestPanel;
