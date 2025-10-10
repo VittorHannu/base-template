@@ -72,7 +72,7 @@ function AppContent() {
 
         {/* Animated Panel Stack */}
         <AnimatePresence>
-          {stack.map((panelName) => (
+          {stack.map((panelName: string) => (
             <motion.div
               key={panelName}
               variants={motionVariants}
