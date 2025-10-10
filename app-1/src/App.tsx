@@ -1,17 +1,41 @@
 import { useState, useEffect } from 'react';
-import { supabase } from './lib/supabaseClient'; // Import supabase client
-import { TestPage } from "./components/TestPage"; // Keep TestPage for now
+import { supabase } from './lib/supabaseClient';
+import { TestPage } from "./components/TestPage";
+import { AuthProvider, useAuth } from './auth';
+import { Login } from './components/Login';
+import NotificationManager from './components/NotificationManager';
 
-function App() {
+function AuthStatus() {
+  const { session, user, loading, signOut } = useAuth();
+
+  if (loading) {
+    return <p>Loading authentication...</p>;
+  }
+
+  if (session) {
+    return (
+      <div>
+        <p>Logged in as: {user?.email}</p>
+        <button onClick={signOut}>Sign Out</button>
+      </div>
+    );
+  }
+
+  return <Login />;
+}
+
+function AppContent() {
   const [data, setData] = useState<any[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { session } = useAuth(); // Get session from AuthContext
 
   useEffect(() => {
+    if (!session) return; // Only fetch data if logged in
+
     async function fetchData() {
       try {
-        // Replace 'your_table_name' with an actual table in your Supabase project
         const { data: fetchedData, error: supabaseError } = await supabase
-          .from('test_table') // You might need to create this table or use an existing one
+          .from('test_table')
           .select('*');
 
         if (supabaseError) {
@@ -24,7 +48,7 @@ function App() {
     }
 
     fetchData();
-  }, []);
+  }, [session]); // Re-run effect when session changes
 
   return (
     <div>
@@ -39,9 +63,19 @@ function App() {
         <p>Loading data from Supabase...</p>
       )}
       <hr className="my-4" />
-      {/* Keep TestPage for now to ensure Shadcn styling is still visible */}
+      <NotificationManager />
+      <hr className="my-4" />
       <TestPage />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AuthStatus />
+      <AppContent />
+    </AuthProvider>
   );
 }
 
