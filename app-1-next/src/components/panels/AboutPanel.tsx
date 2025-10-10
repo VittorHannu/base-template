@@ -2,18 +2,20 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { usePanelActions } from '@/context/PanelStackContext';
 
-interface AboutPanelProps {
-  onGoBack: () => void;
-}
+const AboutPanel: React.FC = () => {
+  const { push, pop } = usePanelActions();
 
-const AboutPanel: React.FC<AboutPanelProps> = ({ onGoBack }) => {
   return (
     <div className="p-4 bg-background h-full">
       <h1 className="text-2xl font-bold">About Page</h1>
       <p className="mt-4">This is App 1.</p>
-      <Button onClick={onGoBack} className="mt-6">
+      <Button onClick={pop} className="mt-6">
         Go Back
+      </Button>
+      <Button onClick={() => push('test')} className="mt-6 ml-4" variant="secondary">
+        Open Test Panel
       </Button>
     </div>
   );

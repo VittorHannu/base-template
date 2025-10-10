@@ -28,20 +28,25 @@ const stackReducer = (state: State, action: Action): State => {
 
 const SESSION_STORAGE_KEY = 'panelStack';
 
-export const usePanelStack = () => {
-  const [state, dispatch] = useReducer(stackReducer, { stack: [] });
-
-  // On initial load, try to hydrate the stack from sessionStorage
-  useEffect(() => {
+// This initializer function runs only once, on the initial render.
+const getInitialState = () => {
+  // This code only runs on the client.
+  if (typeof window !== 'undefined') {
     try {
       const savedStack = sessionStorage.getItem(SESSION_STORAGE_KEY);
       if (savedStack) {
-        dispatch({ type: 'REPLACE', payload: JSON.parse(savedStack) });
+        return { stack: JSON.parse(savedStack) };
       }
     } catch (error) {
       console.error("Failed to read from sessionStorage", error);
     }
-  }, []);
+  }
+  // Default state if on server or if nothing is in storage.
+  return { stack: [] };
+};
+
+export const usePanelStack = () => {
+  const [state, dispatch] = useReducer(stackReducer, getInitialState());
 
   // Whenever the stack changes, save it to sessionStorage
   useEffect(() => {

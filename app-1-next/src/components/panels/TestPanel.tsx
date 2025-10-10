@@ -3,12 +3,11 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { usePanelActions } from '@/context/PanelStackContext';
 
-interface TestPanelProps {
-  onGoBack: () => void;
-}
+const TestPanel: React.FC = () => {
+  const { pop } = usePanelActions();
 
-const TestPanel: React.FC<TestPanelProps> = ({ onGoBack }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
       <h1 className="text-4xl font-bold mb-8">Shadcn UI Test Page</h1>
@@ -27,7 +26,7 @@ const TestPanel: React.FC<TestPanelProps> = ({ onGoBack }) => {
         </CardFooter>
       </Card>
 
-      <Button variant="destructive" onClick={onGoBack}>Go Back</Button>
+      <Button variant="destructive" onClick={pop}>Go Back</Button>
     </div>
   );
 };
