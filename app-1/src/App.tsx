@@ -1,7 +1,6 @@
-import { AuthProvider, useAuth } from './auth/AuthProvider';
-import { Login } from './components/Login';
-import NotificationManager from './components/NotificationManager';
-import { TestPage } from './components/TestPage';
+import { AuthProvider, useAuth } from '@/auth/AuthProvider';
+import { Login } from '@/auth/Login';
+import MainLayout from '@/layouts/MainLayout';
 
 function AppContent() {
   const { session } = useAuth();
@@ -10,15 +9,7 @@ function AppContent() {
     return <Login />;
   }
 
-  return (
-    <div>
-      <h1>Supabase Connection Test</h1>
-      <hr className="my-4" />
-      <NotificationManager />
-      <hr className="my-4" />
-      <TestPage />
-    </div>
-  );
+  return <MainLayout />;
 }
 
 function App() {

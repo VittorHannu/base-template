@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
-export function TestPage() {
+interface TestPageProps {
+  onGoBack: () => void;
+}
+
+export function TestPage({ onGoBack }: TestPageProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <h1 className="text-4xl font-bold mb-8">Shadcn UI Test Page</h1>
@@ -20,7 +24,7 @@ export function TestPage() {
         </CardFooter>
       </Card>
 
-      <Button variant="destructive">Delete Something</Button>
+      <Button variant="destructive" onClick={onGoBack}>Go Back</Button>
     </div>
   );
 }
