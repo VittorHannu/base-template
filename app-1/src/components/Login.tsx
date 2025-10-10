@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../auth';
+import { supabase } from '../lib/supabaseClient';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -7,21 +7,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 export function Login() {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const { signInWithOtp } = useAuth();
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
     setMessage('');
 
-    const { error } = await signInWithOtp(email);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
       setMessage(`Error: ${error.message}`);
-    } else {
-      setMessage('Check your email for the login link!');
     }
     setLoading(false);
   };
@@ -31,7 +29,7 @@ export function Login() {
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account.
+          Enter your email and password below to login to your account.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -47,8 +45,18 @@ export function Login() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+          <div className="grid gap-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Loading...' : 'Login with Email'}
+            {loading ? 'Loading...' : 'Login'}
           </Button>
         </form>
         {message && <p className="mt-4 text-center text-sm text-muted-foreground">{message}</p>}
