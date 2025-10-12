@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/ui/card';
-import { supabase } from '@/shared/lib/supabaseClient';
+import { supabase } from '/shared/utils/utils/supabaseClient';
 
 const NotificationManager = () => {
   const { session } = useAuth();

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import useRouter
-import { supabase } from '@/shared/lib/supabaseClient';
+import { supabase } from '/shared/utils/utils/supabaseClient';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';

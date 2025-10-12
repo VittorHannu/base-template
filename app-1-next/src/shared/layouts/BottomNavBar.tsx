@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '/shared/utils/utils/utils';
 import { useAuth } from '@/features/auth/AuthProvider';
 
 const navItems = [
