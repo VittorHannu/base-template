@@ -1,0 +1,16 @@
+{
+  "name": "base-template-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter app-1-next dev",
+    "build": "pnpm --filter app-1-next build",
+    "lint": "pnpm -r lint"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@next/eslint-plugin-next": "^15.5.4",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.4",
+    "typescript": "^5"
+  }
+}

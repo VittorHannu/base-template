@@ -1,15 +1,15 @@
-import { useAuth } from '@/auth/AuthProvider';
+import { useAuth } from '@/features/auth/AuthProvider';
 import { getToken } from 'firebase/messaging';
-import { messaging } from '@/services/firebase/firebase';
-import { Button } from '@/components/ui/button';
+import { messaging } from '@/features/notifications/services/firebase/firebase';
+import { Button } from '@/shared/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { supabase } from '@/lib/supabaseClient';
+} from '@/shared/ui/card';
+import { supabase } from '@/shared/lib/supabaseClient';
 
 const NotificationManager = () => {
   const { session } = useAuth();

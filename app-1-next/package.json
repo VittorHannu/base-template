@@ -11,6 +11,7 @@
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "2.43.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -25,16 +26,11 @@
     "tailwind-merge": "^2.4.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@next/eslint-plugin-next": "^15.5.4",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.4",
     "tailwindcss": "^4",
-    "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5"
+    "tailwindcss-animate": "^1.0.7"
   }
 }

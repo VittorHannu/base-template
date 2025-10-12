@@ -1,0 +1,3 @@
+packages:
+  - 'app-1-next'
+  - 'supabase/functions/*'
