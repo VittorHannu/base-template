@@ -64,7 +64,9 @@ export const usePanelStack = () => {
       
       // Only dispatch if the state is actually different
       if (JSON.stringify(panelNames) !== JSON.stringify(state.stack)) {
-        dispatch({ type: 'REPLACE', payload: panelNames });
+        setTimeout(() => {
+          dispatch({ type: 'REPLACE', payload: panelNames });
+        }, 0);
       }
     };
 
