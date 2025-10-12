@@ -4,8 +4,8 @@ import React from "react";
 
 import { panelRegistry } from "./panels.config";
 
-import { PanelLayout } from "@/features/panel-system/PanelLayout";
-import { usePanelActions } from "@/features/panel-system/PanelStackContext";
+import { PanelLayout } from "@/shared/layouts/panel-system/PanelLayout";
+import { usePanelActions } from "@/shared/layouts/panel-system/PanelStackContext";
 import { Button } from "@/shared/ui/button";
 
 // The content for the base settings page.
