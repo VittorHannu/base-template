@@ -15,7 +15,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ header, children }) => {
   return (
     <div
       className="relative flex w-screen flex-col bg-background"
-      style={{ height: "var(--svh, 100vh)" }}
+      style={{ height: "var(--svh, 100vh)", border: "2px solid red" }}
     >
       {header}
       <main

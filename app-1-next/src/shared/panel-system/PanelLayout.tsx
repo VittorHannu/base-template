@@ -35,8 +35,14 @@ export function PanelLayout({
 
   return (
     <PanelStackContext.Provider value={{ push, pop }}>
-      <div className="relative h-screen w-screen overflow-hidden pb-16">
-        {children} {/* Base page content */}
+      <div className="relative flex h-screen w-screen flex-col overflow-hidden">
+        <main
+          id="main-scroll-container"
+          className="flex-grow"
+          style={{ overflowY: "auto", overscrollBehavior: "contain" }}
+        >
+          <div className="pb-16">{children}</div>
+        </main>
         <AnimatePresence>
           {stack.map((panelName) => {
             const PanelComponent = panelRegistry[panelName];
@@ -51,9 +57,15 @@ export function PanelLayout({
                 exit="exit"
                 className="absolute top-0 left-0 h-full w-full bg-background z-10"
               >
-                <Suspense fallback={<Spinner />}>
-                  <PanelComponent />
-                </Suspense>
+                <div
+                  data-panel-scroll-container
+                  className="h-full w-full pb-16"
+                  style={{ overflowY: "auto", overscrollBehavior: "contain" }}
+                >
+                  <Suspense fallback={<Spinner />}>
+                    <PanelComponent />
+                  </Suspense>
+                </div>
               </motion.div>
             );
           })}
