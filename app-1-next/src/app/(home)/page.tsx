@@ -2,16 +2,12 @@
 
 import React, { useState } from "react";
 
-import { panelRegistry } from "./panels.config";
-
 import NotificationManager from "@/features/notifications/NotificationManager";
 import { Button } from "@/shared/components/ui/button";
-import { PanelLayout } from "@/shared/panel-system/PanelLayout";
-import { usePanelActions } from "@/shared/panel-system/PanelStackContext";
+import { PanelLink } from "@/shared/panel-system/PanelLink";
 
-// The content for the base page.
-function HomePageContent() {
-  const { push } = usePanelActions();
+// The main export for the page.
+export default function Home() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   const openNotifications = () => setIsNotificationsOpen(true);
@@ -36,12 +32,14 @@ function HomePageContent() {
       <div className="p-4">
         <h1 className="text-2xl font-bold">Home Page</h1>
         <p className="mt-4">Welcome to the new Panel-based App!</p>
-        <Button onClick={() => push("about")} className="mt-6">
-          About This App
-        </Button>
-        <Button onClick={() => push("test")} className="mt-6 ml-4" variant="secondary">
-          Test Page
-        </Button>
+        <PanelLink to="about">
+          <Button className="mt-6">About This App</Button>
+        </PanelLink>
+        <PanelLink to="test">
+          <Button className="mt-6 ml-4" variant="secondary">
+            Test Page
+          </Button>
+        </PanelLink>
         <Button onClick={openNotifications} className="mt-6 ml-4">
           Notifications
         </Button>
@@ -66,18 +64,4 @@ function HomePageContent() {
       )}
     </>
   );
-}
-
-// This component wraps the page content with the PanelLayout.
-function AppContent() {
-  return (
-    <PanelLayout panelRegistry={panelRegistry}>
-      <HomePageContent />
-    </PanelLayout>
-  );
-}
-
-// The main export for the page.
-export default function Home() {
-  return <AppContent />;
 }

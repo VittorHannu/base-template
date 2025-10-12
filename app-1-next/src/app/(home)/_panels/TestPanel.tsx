@@ -14,7 +14,7 @@ import {
 import { usePanelActions } from "@/shared/panel-system/PanelStackContext";
 
 const TestPanel: React.FC = () => {
-  const { pop } = usePanelActions();
+  const panelActions = usePanelActions();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
@@ -34,7 +34,7 @@ const TestPanel: React.FC = () => {
         </CardFooter>
       </Card>
 
-      <Button variant="destructive" onClick={pop}>
+      <Button variant="destructive" onClick={() => panelActions?.pop()}>
         Go Back
       </Button>
     </div>

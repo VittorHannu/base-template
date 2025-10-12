@@ -9,8 +9,5 @@ export const PanelStackContext = createContext<PanelStackContextType | undefined
 
 export const usePanelActions = () => {
   const context = useContext(PanelStackContext);
-  if (!context) {
-    throw new Error("usePanelActions must be used within a PanelStackProvider");
-  }
   return context;
 };
