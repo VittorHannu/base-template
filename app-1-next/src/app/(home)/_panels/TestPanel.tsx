@@ -2,8 +2,7 @@
 
 import React from "react";
 
-import { usePanelActions } from "@/shared/layouts/panel-system/PanelStackContext";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,7 +10,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/shared/ui/card";
+} from "@/shared/components/ui/card";
+import { usePanelActions } from "@/shared/panel-system/PanelStackContext";
 
 const TestPanel: React.FC = () => {
   const { pop } = usePanelActions();

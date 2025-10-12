@@ -2,9 +2,15 @@ import { getToken } from "firebase/messaging";
 
 import { useAuth } from "@/features/auth/AuthProvider";
 import { messaging } from "@/features/notifications/services/firebase/firebase";
+import { Button } from "@/shared/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
 import { supabase } from "@/shared/services/supabaseClient";
-import { Button } from "@/shared/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 
 const NotificationManager = () => {
   const { session } = useAuth();

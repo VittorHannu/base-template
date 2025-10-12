@@ -5,9 +5,9 @@ import React, { useState } from "react";
 import { panelRegistry } from "./panels.config";
 
 import NotificationManager from "@/features/notifications/NotificationManager";
-import { PanelLayout } from "@/shared/layouts/panel-system/PanelLayout";
-import { usePanelActions } from "@/shared/layouts/panel-system/PanelStackContext";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/components/ui/button";
+import { PanelLayout } from "@/shared/panel-system/PanelLayout";
+import { usePanelActions } from "@/shared/panel-system/PanelStackContext";
 
 // The content for the base page.
 function HomePageContent() {

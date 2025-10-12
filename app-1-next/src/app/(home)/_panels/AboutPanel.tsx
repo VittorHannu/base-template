@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import { usePanelActions } from "@/shared/layouts/panel-system/PanelStackContext";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/components/ui/button";
+import { usePanelActions } from "@/shared/panel-system/PanelStackContext";
 
 const AboutPanel: React.FC = () => {
   const { push, pop } = usePanelActions();

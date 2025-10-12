@@ -3,11 +3,17 @@
 import { useRouter } from "next/navigation"; // Import useRouter
 import React, { useState } from "react";
 
+import { Button } from "@/shared/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
+import { Input } from "@/shared/components/ui/input";
+import { Label } from "@/shared/components/ui/label";
 import { supabase } from "@/shared/services/supabaseClient";
-import { Button } from "@/shared/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Input } from "@/shared/ui/input";
-import { Label } from "@/shared/ui/label";
 
 export function Login() {
   const router = useRouter(); // Get router instance
