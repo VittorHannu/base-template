@@ -42,6 +42,8 @@ export default function SettingsPage() {
             placeholder="Input at the bottom"
             className="w-full p-3 mt-4 bg-gray-800 text-white rounded border border-gray-600"
           />
+
+          <div style={{ height: "30px" }} />
         </div>
       </div>
     </MainLayout>
