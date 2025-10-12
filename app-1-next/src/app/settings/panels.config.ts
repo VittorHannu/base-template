@@ -1,7 +1,7 @@
-import dynamic from "next/dynamic";
+import React from "react";
 
 export const panelRegistry = {
-  profile: dynamic(() => import("./_panels/ProfilePanel")),
+  profile: React.lazy(() => import("./_panels/ProfilePanel")),
   // Add other settings panels here in the future
 };
 

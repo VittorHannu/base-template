@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
+import React, { Suspense } from "react";
 
 import { PanelStackContext } from "./PanelStackContext";
 import { usePanelStack } from "./usePanelStack";
@@ -17,6 +17,12 @@ const motionVariants = {
   animate: { x: 0, transition: transition },
   exit: { x: "100%", transition: transition },
 };
+
+const Spinner = () => (
+  <div className="flex h-full w-full items-center justify-center">
+    <div className="h-8 w-8 animate-spin rounded-full border-4 border-dashed border-primary" />
+  </div>
+);
 
 export function PanelLayout({
   children,
@@ -43,9 +49,11 @@ export function PanelLayout({
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="absolute top-0 left-0 w-full h-full bg-background z-10"
+                className="absolute top-0 left-0 h-full w-full bg-background z-10"
               >
-                <PanelComponent />
+                <Suspense fallback={<Spinner />}>
+                  <PanelComponent />
+                </Suspense>
               </motion.div>
             );
           })}
