@@ -20,6 +20,9 @@ node_modules
 # production
 /build
 
+# pwa
+sw.js
+
 # misc
 .DS_Store
 *.pem
