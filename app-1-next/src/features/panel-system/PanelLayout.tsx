@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { usePanelStack } from './usePanelStack';
-import { PanelStackContext } from './PanelStackContext';
-import { AnimatePresence, motion } from 'framer-motion';
+import React from "react";
+import { usePanelStack } from "./usePanelStack";
+import { PanelStackContext } from "./PanelStackContext";
+import { AnimatePresence, motion } from "framer-motion";
 
 const transition = {
-  type: 'tween',
+  type: "tween",
   ease: [0.32, 0.72, 0, 1],
   duration: 0.4,
 };
 
 const motionVariants = {
-  initial: { x: '100%' },
+  initial: { x: "100%" },
   animate: { x: 0, transition: transition },
-  exit: { x: '100%', transition: transition },
+  exit: { x: "100%", transition: transition },
 };
 
 export function PanelLayout({ children, panelRegistry }: { children: React.ReactNode, panelRegistry: Record<string, React.ComponentType> }) {

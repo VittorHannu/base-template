@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Button } from '@/shared/ui/button';
-import { usePanelActions } from '@/features/panel-system/PanelStackContext';
+import React from "react";
+import { Button } from "@/shared/ui/button";
+import { usePanelActions } from "@/features/panel-system/PanelStackContext";
 
 const AboutPanel: React.FC = () => {
   const { push, pop } = usePanelActions();
@@ -14,7 +14,7 @@ const AboutPanel: React.FC = () => {
       <Button onClick={pop} className="mt-6">
         Go Back
       </Button>
-      <Button onClick={() => push('test')} className="mt-6 ml-4" variant="secondary">
+      <Button onClick={() => push("test")} className="mt-6 ml-4" variant="secondary">
         Open Test Panel
       </Button>
     </div>

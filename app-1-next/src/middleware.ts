@@ -1,5 +1,5 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+import { createServerClient, type CookieOptions } from "@supabase/ssr"
+import { NextResponse, type NextRequest } from "next/server"
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
@@ -22,9 +22,9 @@ export async function middleware(request: NextRequest) {
           response.cookies.set({ name, value, ...options })
         },
         remove(name: string, options: CookieOptions) {
-          request.cookies.set({ name, value: '', ...options })
+          request.cookies.set({ name, value: "", ...options })
           response = NextResponse.next({ request: { headers: request.headers } })
-          response.cookies.set({ name, value: '', ...options })
+          response.cookies.set({ name, value: "", ...options })
         },
       },
     }
@@ -33,13 +33,13 @@ export async function middleware(request: NextRequest) {
   const { data: { session } } = await supabase.auth.getSession();
 
   // If user is not signed in and not on the login page, redirect them there
-  if (!session && request.nextUrl.pathname !== '/login') {
-    return NextResponse.redirect(new URL('/login', request.url))
+  if (!session && request.nextUrl.pathname !== "/login") {
+    return NextResponse.redirect(new URL("/login", request.url))
   }
 
   // If user is signed in and tries to go to login page, redirect to home
-  if (session && request.nextUrl.pathname === '/login') {
-    return NextResponse.redirect(new URL('/', request.url))
+  if (session && request.nextUrl.pathname === "/login") {
+    return NextResponse.redirect(new URL("/", request.url))
   }
 
   return response
@@ -47,6 +47,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|icons|manifest.json|sw.js).*)',
+    "/((?!_next/static|_next/image|favicon.ico|icons|manifest.json|sw.js).*)",
   ],
 }

@@ -19,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 
 let messagingInstance = null;
 // Only initialize Firebase Messaging if the context is secure
-if (typeof window !== 'undefined' && (window.isSecureContext || window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+if (typeof window !== "undefined" && (window.isSecureContext || window.location.protocol === "https:" || window.location.hostname === "localhost")) {
   messagingInstance = getMessaging(app);
 }
 export const messaging = messagingInstance;

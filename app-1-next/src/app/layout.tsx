@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/features/auth/AuthProvider";
 import { BottomNavBar } from "@/shared/layouts/BottomNavBar";
-import { SwipeBackGestureBlocker } from "/shared/utils/utils/SwipeBackGestureBlocker";
+import { SwipeBackGestureBlocker } from "@/shared/utils/SwipeBackGestureBlocker";
 
 export const metadata: Metadata = {
   title: "Create Next App",

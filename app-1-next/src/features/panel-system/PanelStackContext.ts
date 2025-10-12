@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
 interface PanelStackContextType {
   push: (panel: string) => void;
@@ -10,7 +10,7 @@ export const PanelStackContext = createContext<PanelStackContextType | undefined
 export const usePanelActions = () => {
   const context = useContext(PanelStackContext);
   if (!context) {
-    throw new Error('usePanelActions must be used within a PanelStackProvider');
+    throw new Error("usePanelActions must be used within a PanelStackProvider");
   }
   return context;
 };

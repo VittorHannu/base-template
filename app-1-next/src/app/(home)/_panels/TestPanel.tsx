@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/shared/ui/card";
-import { usePanelActions } from '@/features/panel-system/PanelStackContext';
+import { usePanelActions } from "@/features/panel-system/PanelStackContext";
 
 const TestPanel: React.FC = () => {
   const { pop } = usePanelActions();

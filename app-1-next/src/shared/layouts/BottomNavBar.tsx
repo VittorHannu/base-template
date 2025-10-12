@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { cn } from '/shared/utils/utils/utils';
-import { useAuth } from '@/features/auth/AuthProvider';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/shared/utils/utils";
+import { useAuth } from "@/features/auth/AuthProvider";
 
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/settings', label: 'Settings' },
+  { href: "/", label: "Home" },
+  { href: "/settings", label: "Settings" },
 ];
 
 export function BottomNavBar() {
@@ -28,8 +28,8 @@ export function BottomNavBar() {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex flex-col items-center justify-center w-full py-2 text-sm',
-                isActive ? 'text-primary' : 'text-muted-foreground'
+                "flex flex-col items-center justify-center w-full py-2 text-sm",
+                isActive ? "text-primary" : "text-muted-foreground"
               )}
             >
               <span>{item.label}</span>

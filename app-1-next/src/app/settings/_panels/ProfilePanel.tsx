@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Button } from '@/shared/ui/button';
-import { usePanelActions } from '@/features/panel-system/PanelStackContext';
+import React from "react";
+import { Button } from "@/shared/ui/button";
+import { usePanelActions } from "@/features/panel-system/PanelStackContext";
 
 const ProfilePanel: React.FC = () => {
   const { pop } = usePanelActions();

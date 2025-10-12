@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Import useRouter
-import { supabase } from '/shared/utils/utils/supabaseClient';
-import { Button } from '@/shared/ui/button';
-import { Input } from '@/shared/ui/input';
-import { Label } from '@/shared/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
+import { supabase } from "@/shared/services/supabaseClient";
+import { Button } from "@/shared/ui/button";
+import { Input } from "@/shared/ui/input";
+import { Label } from "@/shared/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 
 export function Login() {
   const router = useRouter(); // Get router instance
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    setMessage('');
+    setMessage("");
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -27,7 +27,7 @@ export function Login() {
       setLoading(false);
     } else {
       // On successful login, redirect to the home page.
-      router.push('/');
+      router.push("/");
     }
   };
 
@@ -63,7 +63,7 @@ export function Login() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Loading...' : 'Login'}
+            {loading ? "Loading..." : "Login"}
           </Button>
         </form>
         {message && <p className="mt-4 text-center text-sm text-muted-foreground">{message}</p>}

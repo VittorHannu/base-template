@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { PanelLayout } from '@/features/panel-system/PanelLayout';
-import { panelRegistry } from './panels.config';
-import { Button } from '@/shared/ui/button';
-import { usePanelActions } from '@/features/panel-system/PanelStackContext';
-import NotificationManager from '@/features/notifications/NotificationManager';
+import React, { useState } from "react";
+import { PanelLayout } from "@/features/panel-system/PanelLayout";
+import { panelRegistry } from "./panels.config";
+import { Button } from "@/shared/ui/button";
+import { usePanelActions } from "@/features/panel-system/PanelStackContext";
+import NotificationManager from "@/features/notifications/NotificationManager";
 
 // The content for the base page.
 function HomePageContent() {
@@ -18,10 +18,10 @@ function HomePageContent() {
   const handleShare = () => {
     const url = window.location.href;
     if (navigator.share) {
-      navigator.share({ title: 'Check out this view!', url: url }).catch(console.error);
+      navigator.share({ title: "Check out this view!", url: url }).catch(console.error);
     } else {
       navigator.clipboard.writeText(url).then(() => {
-        alert('Link copied to clipboard!');
+        alert("Link copied to clipboard!");
       }).catch(console.error);
     }
   };
@@ -31,10 +31,10 @@ function HomePageContent() {
       <div className="p-4">
         <h1 className="text-2xl font-bold">Home Page</h1>
         <p className="mt-4">Welcome to the new Panel-based App!</p>
-        <Button onClick={() => push('about')} className="mt-6">
+        <Button onClick={() => push("about")} className="mt-6">
           About This App
         </Button>
-        <Button onClick={() => push('test')} className="mt-6 ml-4" variant="secondary">
+        <Button onClick={() => push("test")} className="mt-6 ml-4" variant="secondary">
           Test Page
         </Button>
         <Button onClick={openNotifications} className="mt-6 ml-4">

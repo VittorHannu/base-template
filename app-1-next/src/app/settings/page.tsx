@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { PanelLayout } from '@/features/panel-system/PanelLayout';
-import { panelRegistry } from './panels.config';
-import { Button } from '@/shared/ui/button';
-import { usePanelActions } from '@/features/panel-system/PanelStackContext';
+import React from "react";
+import { PanelLayout } from "@/features/panel-system/PanelLayout";
+import { panelRegistry } from "./panels.config";
+import { Button } from "@/shared/ui/button";
+import { usePanelActions } from "@/features/panel-system/PanelStackContext";
 
 // The content for the base settings page.
 function SettingsPageContent() {
@@ -14,7 +14,7 @@ function SettingsPageContent() {
     <div className="p-4">
       <h1 className="text-2xl font-bold">Settings Page</h1>
       <p className="mt-4">This is the base content for the settings page.</p>
-      <Button onClick={() => push('profile')} className="mt-6">
+      <Button onClick={() => push("profile")} className="mt-6">
         Open Profile Panel
       </Button>
     </div>
