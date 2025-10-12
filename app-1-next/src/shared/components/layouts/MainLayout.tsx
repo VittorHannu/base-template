@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useMobileLayoutFix } from "@/shared/hooks/useMobileLayoutFix";
 
@@ -12,18 +12,71 @@ interface MainLayoutProps {
 export const MainLayout: React.FC<MainLayoutProps> = ({ header, children }) => {
   useMobileLayoutFix();
 
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useEffect(() => {
+    function updateHeaderHeight() {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.getBoundingClientRect().height);
+      }
+    }
+
+    updateHeaderHeight();
+    window.addEventListener("resize", updateHeaderHeight);
+    return () => window.removeEventListener("resize", updateHeaderHeight);
+  }, []);
+
   return (
     <div
-      className="relative flex w-screen flex-col bg-background"
-      style={{ height: "var(--svh, 100vh)", border: "2px solid red" }}
+      id="red-container"
+      style={{
+        position: "fixed",
+        top: "var(--svt, 0px)", // top dinâmico
+        left: 0,
+        height: "var(--svh, 100vh)", // altura dinâmica
+        width: "100vw",
+        margin: 0,
+        padding: 0,
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        overscrollBehavior: "none", // ⚠️ previne scroll do sistema
+        touchAction: "none", // ⚠️ previne gestos de toque
+        border: "2px solid red",
+        boxSizing: "border-box",
+        backgroundColor: "white",
+      }}
     >
-      {header}
+      {/* Header (não scrollável) */}
+      <div
+        ref={headerRef}
+        style={{
+          flexShrink: 0,
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          border: "2px solid green",
+          touchAction: "none", // ⚠️ impede scroll no header
+          overscrollBehavior: "none", // ⚠️ evita pull-to-refresh ou scroll no header
+        }}
+      >
+        {header}
+      </div>
+
+      {/* Área scrollável */}
       <main
         id="main-scroll-container"
-        className="flex-grow"
-        style={{ overflowY: "scroll", overscrollBehavior: "contain" }}
+        style={{
+          height: `calc(var(--svh, 100vh) - ${headerHeight}px)`,
+          overflowY: "auto",
+          overscrollBehavior: "contain", // ⚠️ limita scroll só ao main
+          border: "2px solid yellow",
+          minHeight: 0,
+          WebkitOverflowScrolling: "touch", // para suavidade no iOS
+        }}
       >
-        <div style={{ minHeight: "calc(100% + 1px)" }}>{children}</div>
+        {children}
       </main>
     </div>
   );

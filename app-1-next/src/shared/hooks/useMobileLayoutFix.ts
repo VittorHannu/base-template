@@ -12,10 +12,10 @@ export const useMobileLayoutFix = () => {
     const handleGlobalFocus = (event: FocusEvent) => {
       const target = event.target as HTMLElement;
       if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) {
-        // Prevent the browser's default scroll behavior
+        // Impede o scroll automático padrão
         target.focus({ preventScroll: true });
 
-        // After a short delay to allow the keyboard to appear, scroll the input into view.
+        // Depois de um tempo, scrolla o input pro centro da área visível
         setTimeout(() => {
           const scrollContainer = document.getElementById("main-scroll-container");
           const activeElement = event.target as HTMLElement;
@@ -28,12 +28,10 @@ export const useMobileLayoutFix = () => {
               inputRect.top >= containerRect.top && inputRect.bottom <= containerRect.bottom;
 
             if (!isAlreadyVisible) {
-              // Calculate the desired scroll position to center the input
               const centerPoint = containerRect.height / 2;
               const inputCenterPoint = inputRect.top - containerRect.top + inputRect.height / 2;
               let desiredScrollTop = scrollContainer.scrollTop + inputCenterPoint - centerPoint;
 
-              // Clamp the scroll position to be within valid bounds
               const maxScrollTop = scrollContainer.scrollHeight - scrollContainer.clientHeight;
               desiredScrollTop = Math.max(0, Math.min(desiredScrollTop, maxScrollTop));
 
@@ -49,26 +47,37 @@ export const useMobileLayoutFix = () => {
 
     const handleViewportResize = () => {
       const newHeight = vp.height;
-      // Set the CSS variable for the dynamic viewport height
-      document.documentElement.style.setProperty("--svh", `${newHeight}px`);
+      const offsetTop = vp.offsetTop; // <- valor quando a viewport é empurrada pra baixo (ex: teclado)
 
-      // A heuristic to detect when the keyboard is closed
+      // Atualiza a CSS var para uso com height dinâmico
+      document.documentElement.style.setProperty("--svh", `${newHeight}px`);
+      document.documentElement.style.setProperty("--svt", `${offsetTop}px`); // <- novo: topo real
+
+      // Força o container vermelho a acompanhar a viewport visível
+      const redContainer = document.getElementById("red-container");
+      if (redContainer) {
+        redContainer.style.top = `${offsetTop}px`; // <- fixando o topo no offset da viewport
+      }
+
+      // Detecta se o teclado fechou e desfoca o input
       const activeElement = document.activeElement as HTMLElement;
       if (newHeight > viewportHeight.current + 150) {
         if (
           activeElement &&
           (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA")
         ) {
-          activeElement.blur(); // Blur the input when keyboard closes
+          activeElement.blur();
         }
       }
+
       viewportHeight.current = newHeight;
     };
 
     viewportHeight.current = vp.height;
+
     vp.addEventListener("resize", handleViewportResize);
     document.addEventListener("focus", handleGlobalFocus, { capture: true });
-    handleViewportResize(); // Set initial value
+    handleViewportResize(); // <- chama uma vez no início
 
     return () => {
       vp.removeEventListener("resize", handleViewportResize);

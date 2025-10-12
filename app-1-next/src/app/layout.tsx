@@ -25,7 +25,7 @@ export default function RootLayout({
         <AuthProvider>
           <SwipeBackGestureBlocker />
           {children}
-          <BottomNavBar />
+          {/* <BottomNavBar /> */}
         </AuthProvider>
       </body>
     </html>
