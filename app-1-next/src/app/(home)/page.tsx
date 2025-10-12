@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { PanelLayout } from "@/features/panel-system/PanelLayout";
+
 import { panelRegistry } from "./panels.config";
-import { Button } from "@/shared/ui/button";
-import { usePanelActions } from "@/features/panel-system/PanelStackContext";
+
 import NotificationManager from "@/features/notifications/NotificationManager";
+import { PanelLayout } from "@/features/panel-system/PanelLayout";
+import { usePanelActions } from "@/features/panel-system/PanelStackContext";
+import { Button } from "@/shared/ui/button";
 
 // The content for the base page.
 function HomePageContent() {
@@ -20,9 +22,12 @@ function HomePageContent() {
     if (navigator.share) {
       navigator.share({ title: "Check out this view!", url: url }).catch(console.error);
     } else {
-      navigator.clipboard.writeText(url).then(() => {
-        alert("Link copied to clipboard!");
-      }).catch(console.error);
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          alert("Link copied to clipboard!");
+        })
+        .catch(console.error);
     }
   };
 
@@ -50,7 +55,12 @@ function HomePageContent() {
         <div className="absolute top-0 left-0 w-full h-full z-50 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-card p-8 rounded-lg">
             <NotificationManager />
-            <button onClick={closeNotifications} className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Close</button>
+            <button
+              onClick={closeNotifications}
+              className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}

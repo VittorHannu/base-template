@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
-import { usePanelStack } from "./usePanelStack";
-import { PanelStackContext } from "./PanelStackContext";
 import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+
+import { PanelStackContext } from "./PanelStackContext";
+import { usePanelStack } from "./usePanelStack";
 
 const transition = {
   type: "tween",
@@ -17,14 +18,19 @@ const motionVariants = {
   exit: { x: "100%", transition: transition },
 };
 
-export function PanelLayout({ children, panelRegistry }: { children: React.ReactNode, panelRegistry: Record<string, React.ComponentType> }) {
+export function PanelLayout({
+  children,
+  panelRegistry,
+}: {
+  children: React.ReactNode;
+  panelRegistry: Record<string, React.ComponentType>;
+}) {
   const { stack, push, pop } = usePanelStack();
 
   return (
     <PanelStackContext.Provider value={{ push, pop }}>
       <div className="relative h-screen w-screen overflow-hidden pb-16">
         {children} {/* Base page content */}
-
         <AnimatePresence>
           {stack.map((panelName) => {
             const PanelComponent = panelRegistry[panelName];

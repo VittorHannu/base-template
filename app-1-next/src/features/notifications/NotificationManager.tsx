@@ -1,15 +1,10 @@
-import { useAuth } from "@/features/auth/AuthProvider";
 import { getToken } from "firebase/messaging";
+
+import { useAuth } from "@/features/auth/AuthProvider";
 import { messaging } from "@/features/notifications/services/firebase/firebase";
-import { Button } from "@/shared/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/shared/ui/card";
 import { supabase } from "@/shared/services/supabaseClient";
+import { Button } from "@/shared/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 
 const NotificationManager = () => {
   const { session } = useAuth();
@@ -28,12 +23,13 @@ const NotificationManager = () => {
 
         const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js", {
           type: "module",
-          scope: "/"
+          scope: "/",
         });
         console.log("Service worker registered.");
 
         const currentToken = await getToken(messaging, {
-          vapidKey: "BH6H4n_KEzA3NxX4VfeWp2l_OE1hVQfQnKJFVG2bwrYb0C0EtyKfiOIwwYvwBjYK2lZ7yuRSPNfVJ-CsYmriprw", // Hardcoded VAPID key
+          vapidKey:
+            "BH6H4n_KEzA3NxX4VfeWp2l_OE1hVQfQnKJFVG2bwrYb0C0EtyKfiOIwwYvwBjYK2lZ7yuRSPNfVJ-CsYmriprw", // Hardcoded VAPID key
           serviceWorkerRegistration: registration,
         });
 
@@ -79,21 +75,21 @@ const NotificationManager = () => {
     }
 
     console.log("Inserting notification into queue for user:", session.user.id);
-    const { error } = await supabase
-      .from("notifications_queue")
-      .insert({
-        target_user_id: session.user.id,
-        title: "Notificação de Teste",
-        body: "Esta é uma notificação de teste disparada pelo front-end!",
-        source_app: "food-tracker"
-      });
+    const { error } = await supabase.from("notifications_queue").insert({
+      target_user_id: session.user.id,
+      title: "Notificação de Teste",
+      body: "Esta é uma notificação de teste disparada pelo front-end!",
+      source_app: "food-tracker",
+    });
 
     if (error) {
       console.error("Error inserting notification:", error);
       alert(`Erro ao enfileirar a notificação: ${error.message}`);
     } else {
       console.log("Notification queued successfully.");
-      alert("Notificação enfileirada com sucesso! O gatilho do banco de dados agora deve acionar o envio.");
+      alert(
+        "Notificação enfileirada com sucesso! O gatilho do banco de dados agora deve acionar o envio."
+      );
     }
   };
 
@@ -117,7 +113,8 @@ const NotificationManager = () => {
         <CardHeader>
           <CardTitle>2. Enviar Notificação de Teste</CardTitle>
           <CardDescription>
-            Depois de ativar, clique aqui para disparar uma notificação de teste para este dispositivo.
+            Depois de ativar, clique aqui para disparar uma notificação de teste para este
+            dispositivo.
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import { PanelLayout } from "@/features/panel-system/PanelLayout";
+
 import { panelRegistry } from "./panels.config";
-import { Button } from "@/shared/ui/button";
+
+import { PanelLayout } from "@/features/panel-system/PanelLayout";
 import { usePanelActions } from "@/features/panel-system/PanelStackContext";
+import { Button } from "@/shared/ui/button";
 
 // The content for the base settings page.
 function SettingsPageContent() {

@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
+import React, { useState } from "react";
+
 import { supabase } from "@/shared/services/supabaseClient";
 import { Button } from "@/shared/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 
 export function Login() {
   const router = useRouter(); // Get router instance

@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/shared/utils/utils";
+
 import { useAuth } from "@/features/auth/AuthProvider";
+import { cn } from "@/shared/utils/utils";
 
 const navItems = [
   { href: "/", label: "Home" },

@@ -6,7 +6,10 @@ export function SwipeBackGestureBlocker() {
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
       // Apply the fix on iOS (PWA or browser) if panels are open
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent) && window.location.hash.includes("#panels=")) {
+      if (
+        /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+        window.location.hash.includes("#panels=")
+      ) {
         const edgeThreshold = 30; // A slightly larger threshold
 
         if (e.touches[0].pageX < edgeThreshold) {

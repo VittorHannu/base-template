@@ -1,9 +1,17 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/shared/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/shared/ui/card";
+
 import { usePanelActions } from "@/features/panel-system/PanelStackContext";
+import { Button } from "@/shared/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/shared/ui/card";
 
 const TestPanel: React.FC = () => {
   const { pop } = usePanelActions();
@@ -26,7 +34,9 @@ const TestPanel: React.FC = () => {
         </CardFooter>
       </Card>
 
-      <Button variant="destructive" onClick={pop}>Go Back</Button>
+      <Button variant="destructive" onClick={pop}>
+        Go Back
+      </Button>
     </div>
   );
 };

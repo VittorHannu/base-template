@@ -60,8 +60,10 @@ export const usePanelStack = () => {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
-      const panelNames = hash.startsWith("#panels=") ? hash.substring(8).split(",").filter(Boolean) : [];
-      
+      const panelNames = hash.startsWith("#panels=")
+        ? hash.substring(8).split(",").filter(Boolean)
+        : [];
+
       // Only dispatch if the state is actually different
       if (JSON.stringify(panelNames) !== JSON.stringify(state.stack)) {
         setTimeout(() => {
@@ -76,15 +78,18 @@ export const usePanelStack = () => {
     };
   }, [state.stack]);
 
-  const push = useCallback((panel: string) => {
-    // First, update the React state
-    dispatch({ type: "PUSH", payload: panel });
-    
-    // Then, update the URL, creating a new history entry
-    const newStack = [...state.stack, panel];
-    const newHash = `#panels=${newStack.join(",")}`;
-    window.history.pushState(null, "", newHash);
-  }, [state.stack]);
+  const push = useCallback(
+    (panel: string) => {
+      // First, update the React state
+      dispatch({ type: "PUSH", payload: panel });
+
+      // Then, update the URL, creating a new history entry
+      const newStack = [...state.stack, panel];
+      const newHash = `#panels=${newStack.join(",")}`;
+      window.history.pushState(null, "", newHash);
+    },
+    [state.stack]
+  );
 
   const pop = useCallback(() => {
     // Let the browser handle the state change via the hashchange listener

@@ -1,8 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "@/shared/services/supabaseClient";
 import type { Session } from "@supabase/supabase-js";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
+import { supabase } from "@/shared/services/supabaseClient";
 
 // Create a context for the session
 const AuthContext = createContext<{ session: Session | null }>({ session: null });
@@ -19,7 +20,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     // Listen for changes in auth state
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
@@ -36,11 +39,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  return (
-    <AuthContext.Provider value={{ session }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>;
 };
 
 // Custom hook to use the auth session

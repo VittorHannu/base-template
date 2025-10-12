@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { create, getNumericDate } from "https://deno.land/x/djwt@v2.2/mod.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 // Helper function to get a Google Auth Token for FCM API
 async function getGoogleAuthToken(projectId: string, clientEmail: string, privateKey: string) {
@@ -56,12 +56,11 @@ serve(async (req) => {
     if (!source_app) throw new Error("`source_app` is required to select credentials.");
 
     // Select credentials based on the source app
-    let projectId, clientEmail, privateKey;
-    const appPrefix = source_app.toUpperCase().replace(/-/g, '_'); // e.g., 'study-tracker' -> 'STUDY_TRACKER'
+    const appPrefix = source_app.toUpperCase().replace(/-/g, "_"); // e.g., 'study-tracker' -> 'STUDY_TRACKER'
 
-    projectId = Deno.env.get(`${appPrefix}_FIREBASE_PROJECT_ID`);
-    clientEmail = Deno.env.get(`${appPrefix}_FIREBASE_CLIENT_EMAIL`);
-    privateKey = Deno.env.get(`${appPrefix}_FIREBASE_PRIVATE_KEY`);
+    const projectId = Deno.env.get(`${appPrefix}_FIREBASE_PROJECT_ID`);
+    const clientEmail = Deno.env.get(`${appPrefix}_FIREBASE_CLIENT_EMAIL`);
+    const privateKey = Deno.env.get(`${appPrefix}_FIREBASE_PRIVATE_KEY`);
 
     if (!projectId || !clientEmail || !privateKey) {
       throw new Error(`Credentials for source_app '${source_app}' not found.`);
@@ -82,10 +81,12 @@ serve(async (req) => {
 
     if (!tokens || tokens.length === 0) {
       console.log(`No FCM tokens found for user ${target_user_id} and app ${source_app}.`);
-      return new Response(JSON.stringify({ message: "No FCM tokens for user and app." }), { status: 200 });
+      return new Response(JSON.stringify({ message: "No FCM tokens for user and app." }), {
+        status: 200,
+      });
     }
 
-    const fcmTokens = tokens.map(t => t.token);
+    const fcmTokens = tokens.map((t) => t.token);
     const accessToken = await getGoogleAuthToken(projectId, clientEmail, privateKey);
 
     for (const token of fcmTokens) {
@@ -104,36 +105,37 @@ serve(async (req) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(message),
-      }).then(async (res) => {
-        if (!res.ok) {
-          const errorData = await res.json();
-          console.error(`[FCM Send Error] Failed to send to token ${token}:`, errorData);
+      })
+        .then(async (res) => {
+          if (!res.ok) {
+            const errorData: { error?: { details?: { errorCode: string }[] } } = await res.json();
+            console.error(`[FCM Send Error] Failed to send to token ${token}:`, errorData);
 
-          // If the token is unregistered, delete it from the database
-          const isUnregistered = errorData.error?.details?.some(
-            (d: any) => d.errorCode === "UNREGISTERED"
-          );
+            // If the token is unregistered, delete it from the database
+            const isUnregistered = errorData.error?.details?.some(
+              (d: { errorCode: string }) => d.errorCode === "UNREGISTERED"
+            );
 
-          if (isUnregistered) {
-            console.log(`[DB Cleanup] Deleting unregistered token: ${token}`);
-            await supabaseAdmin
-              .from('fcm_tokens')
-              .delete()
-              .eq('token', token);
+            if (isUnregistered) {
+              console.log(`[DB Cleanup] Deleting unregistered token: ${token}`);
+              await supabaseAdmin.from("fcm_tokens").delete().eq("token", token);
+            }
+          } else {
+            console.log(`[FCM Send Success] Successfully sent to token ${token}`);
           }
-        } else {
-          console.log(`[FCM Send Success] Successfully sent to token ${token}`);
-        }
-      }).catch(e => console.error("[FCM Fetch Error]:", e));
+        })
+        .catch((e) => console.error("[FCM Fetch Error]:", e));
     }
 
-    return new Response(JSON.stringify({ success: true, message: "Notification process initiated." }), {
-      headers: { "Content-Type": "application/json" },
-    });
-
+    return new Response(
+      JSON.stringify({ success: true, message: "Notification process initiated." }),
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
     console.error("Error in Edge Function:", error.message);
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });

@@ -10,16 +10,20 @@ const firebaseConfig = {
   storageBucket: "food-tracker-ad8e5.appspot.com",
   messagingSenderId: "657389030077",
   appId: "1:657389030077:web:373095748bf4628aef45d4",
-  measurementId: "G-5NCHSQTKVP"
+  measurementId: "G-5NCHSQTKVP",
 };
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 let messagingInstance = null;
 // Only initialize Firebase Messaging if the context is secure
-if (typeof window !== "undefined" && (window.isSecureContext || window.location.protocol === "https:" || window.location.hostname === "localhost")) {
+if (
+  typeof window !== "undefined" &&
+  (window.isSecureContext ||
+    window.location.protocol === "https:" ||
+    window.location.hostname === "localhost")
+) {
   messagingInstance = getMessaging(app);
 }
 export const messaging = messagingInstance;
