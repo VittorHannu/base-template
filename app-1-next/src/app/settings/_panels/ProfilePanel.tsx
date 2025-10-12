@@ -9,12 +9,35 @@ const ProfilePanel: React.FC = () => {
   const panelActions = usePanelActions();
 
   return (
-    <div className="p-4 bg-background h-full">
-      <h1 className="text-2xl font-bold">Profile Panel</h1>
-      <p className="mt-4">This is a panel within the Settings page.</p>
-      <Button onClick={() => panelActions?.pop()} className="mt-6">
+    <div className="p-4">
+      <Button onClick={() => panelActions?.pop()} className="mb-8">
         Go Back to Settings
       </Button>
+      <p className="text-gray-400 h-16">
+        This area scrolls. Tap the inputs below to test the keyboard behavior.
+      </p>
+
+      <input
+        type="text"
+        placeholder="Input at the top"
+        className="w-full p-3 mt-4 bg-gray-800 text-white rounded border border-gray-600"
+      />
+
+      <div style={{ height: "80vh" }} />
+
+      <input
+        type="text"
+        placeholder="Input in the middle"
+        className="w-full p-3 mt-4 bg-gray-800 text-white rounded border border-gray-600"
+      />
+
+      <div style={{ height: "80vh" }} />
+
+      <input
+        type="text"
+        placeholder="Input at the bottom"
+        className="w-full p-3 mt-4 bg-gray-800 text-white rounded border border-gray-600"
+      />
     </div>
   );
 };

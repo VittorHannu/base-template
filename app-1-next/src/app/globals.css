@@ -113,7 +113,22 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    overscroll-behavior-y: contain;
+  }
   body {
     @apply bg-background text-foreground;
+    height: var(--svh, 100vh);
+    display: flex;
+    flex-direction: column;
+    overscroll-behavior-y: contain;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+  }
+  input,
+  textarea,
+  [contenteditable="true"] {
+    user-select: text;
   }
 }
