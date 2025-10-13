@@ -2,8 +2,8 @@
 
 import React from "react";
 
+import { usePanelActions } from "@/shared/components/layouts/panel-system/PanelStackContext";
 import { Button } from "@/shared/components/ui/button";
-import { usePanelActions } from "@/shared/panel-system/PanelStackContext";
 
 const ProfilePanel: React.FC = () => {
   const panelActions = usePanelActions();

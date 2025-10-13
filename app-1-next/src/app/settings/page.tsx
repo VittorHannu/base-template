@@ -2,10 +2,10 @@
 
 import React from "react";
 
-import { BasicHeader } from "@/shared/components/header/BasicHeader";
-import { MainLayout } from "@/shared/components/layouts/MainLayout";
+import { MainLayout } from "@/shared/components/layouts/Input-Fix-Layout/MainLayout";
+import { PanelLink } from "@/shared/components/layouts/panel-system/PanelLink";
+import { BasicHeader } from "@/shared/components/navigation/BasicHeader";
 import { Button } from "@/shared/components/ui/button";
-import { PanelLink } from "@/shared/panel-system/PanelLink";
 
 export default function SettingsPage() {
   return (

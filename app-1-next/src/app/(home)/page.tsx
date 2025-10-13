@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 
 import NotificationManager from "@/features/notifications/NotificationManager";
+import { PanelLink } from "@/shared/components/layouts/panel-system/PanelLink";
 import { Button } from "@/shared/components/ui/button";
-import { PanelLink } from "@/shared/panel-system/PanelLink";
 
 // The main export for the page.
 export default function Home() {

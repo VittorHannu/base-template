@@ -2,9 +2,9 @@
 
 import React from "react";
 
+import { PanelLink } from "@/shared/components/layouts/panel-system/PanelLink";
+import { usePanelActions } from "@/shared/components/layouts/panel-system/PanelStackContext";
 import { Button } from "@/shared/components/ui/button";
-import { PanelLink } from "@/shared/panel-system/PanelLink";
-import { usePanelActions } from "@/shared/panel-system/PanelStackContext";
 
 const AboutPanel: React.FC = () => {
   const panelActions = usePanelActions();

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-import { useMobileLayoutFix } from "@/shared/hooks/useMobileLayoutFix";
+import { useMobileLayoutFix } from "@/shared/components/layouts/Input-Fix-Layout/useMobileLayoutFix";
 
 interface MainLayoutProps {
   header: React.ReactNode;
