@@ -16,25 +16,25 @@ export const useMobileLayoutFix = () => {
         target.focus({ preventScroll: true });
 
         // Scroll input to center vertically inside container after keyboard appears
-        setTimeout(() => {
-          const scrollContainer = document.getElementById("main-scroll-container");
-          if (!scrollContainer) return;
-
-          const containerRect = scrollContainer.getBoundingClientRect();
-          const inputRect = target.getBoundingClientRect();
-
-          const centerPoint = containerRect.height / 2;
-          const inputCenterPoint = inputRect.top - containerRect.top + inputRect.height / 2;
-          let desiredScrollTop = scrollContainer.scrollTop + inputCenterPoint - centerPoint;
-
-          const maxScrollTop = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-          desiredScrollTop = Math.max(0, Math.min(desiredScrollTop, maxScrollTop));
-
-          scrollContainer.scrollTo({
-            top: desiredScrollTop,
-            behavior: "smooth",
-          });
-        }, 300);
+        // setTimeout(() => {
+        //   const scrollContainer = document.getElementById("main-scroll-container");
+        //   if (!scrollContainer) return;
+        //
+        //   const containerRect = scrollContainer.getBoundingClientRect();
+        //   const inputRect = target.getBoundingClientRect();
+        //
+        //   const centerPoint = containerRect.height / 2;
+        //   const inputCenterPoint = inputRect.top - containerRect.top + inputRect.height / 2;
+        //   let desiredScrollTop = scrollContainer.scrollTop + inputCenterPoint - centerPoint;
+        //
+        //   const maxScrollTop = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+        //   desiredScrollTop = Math.max(0, Math.min(desiredScrollTop, maxScrollTop));
+        //
+        //   scrollContainer.scrollTo({
+        //     top: desiredScrollTop,
+        //     behavior: "smooth",
+        //   });
+        // }, 300);
       }
     };
 
