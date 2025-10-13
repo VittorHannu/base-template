@@ -40,17 +40,27 @@ export const useMobileLayoutFix = () => {
 
     const handleViewportResize = () => {
       const newHeight = vp.height;
-      const offsetTop = vp.offsetTop;
+      let offsetTop = vp.offsetTop;
+
+      // Heuristic to check if the keyboard is closed or almost closed.
+      // If the visual viewport height is close to the window's inner height,
+      // we can assume the keyboard is gone and force the offsetTop to 0.
+      if (Math.abs(newHeight - window.innerHeight) < 20) {
+        offsetTop = 0;
+
+        // If keyboard is closed, blur the active input
+        const activeElement = document.activeElement as HTMLElement;
+        if (
+          activeElement &&
+          (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA")
+        ) {
+          activeElement.blur();
+        }
+      }
 
       // Update CSS variables for viewport height and top offset
       document.documentElement.style.setProperty("--svh", `${newHeight}px`);
       document.documentElement.style.setProperty("--svt", `${offsetTop}px`);
-
-      // Keep red container aligned with viewport top
-      const redContainer = document.getElementById("red-container");
-      if (redContainer) {
-        redContainer.style.top = `${offsetTop}px`;
-      }
 
       viewportHeight.current = newHeight;
     };

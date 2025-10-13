@@ -252,12 +252,5 @@
     border: 2px solid green;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    user-select: none;
-  }
-
-  input,
-  textarea,
-  [contenteditable="true"] {
-    user-select: text;
   }
 }
