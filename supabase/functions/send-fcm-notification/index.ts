@@ -98,6 +98,14 @@ serve(async (req) => {
             title: title || "Nova Notificação",
             body: body || "Você tem uma nova mensagem.",
           },
+          webpush: {
+            headers: {
+              Urgency: "high",
+            },
+          },
+          android: {
+            priority: "high",
+          },
         },
       };
 
