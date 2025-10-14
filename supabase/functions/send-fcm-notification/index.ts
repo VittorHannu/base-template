@@ -97,6 +97,7 @@ serve(async (req) => {
           notification: {
             title: title || "Nova Notificação",
             body: body || "Você tem uma nova mensagem.",
+            icon: "/icons/icon-192x192.png",
           },
           webpush: {
             headers: {
