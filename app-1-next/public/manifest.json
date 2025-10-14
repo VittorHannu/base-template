@@ -1,7 +1,7 @@
 {
   "name": "Food Tracker",
   "short_name": "FoodTracker",
-  "description": "My awesome Next.js PWA",
+  "description": "Template for other projects",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
