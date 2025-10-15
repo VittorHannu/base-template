@@ -97,7 +97,17 @@ serve(async (req) => {
           notification: {
             title: title || "Nova Notificação",
             body: body || "Você tem uma nova mensagem.",
-            icon: "/icons/icon-192x192.png",
+          },
+          webpush: {
+            headers: {
+              Urgency: "high",
+            },
+            notification: {
+              title: title || "Nova Notificação",
+              body: body || "Você tem uma nova mensagem.",
+              icon: "https://twenty-icons.com/airbnb.com",
+              badge: "https://material-icons.github.io/material-icons-png/png/white/work/baseline.png",
+            },
           },
           webpush: {
             headers: {
