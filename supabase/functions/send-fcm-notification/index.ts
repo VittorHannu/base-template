@@ -109,11 +109,6 @@ serve(async (req) => {
               badge: "https://material-icons.github.io/material-icons-png/png/white/work/baseline.png",
             },
           },
-          webpush: {
-            headers: {
-              Urgency: "high",
-            },
-          },
           android: {
             priority: "high",
           },
