@@ -14,7 +14,7 @@
     },
     {
       "name": "Documentation",
-      "path": ".documentation"
+      "path": "documentation"
     },
     {
       "name": "Project Config",

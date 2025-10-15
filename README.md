@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Base Template: Next.js, Supabase, and Documentation
+
+This is a comprehensive template for building modern web applications. It provides a pre-configured, multi-package repository structure that includes a Next.js frontend, a Supabase backend, and a ready-to-use documentation site.
+
+This template is designed to give you a head start by providing a solid foundation with a focus on developer experience and scalability.
+
+## What's Inside?
+
+This template is structured as a multi-package repository and includes:
+
+*   `frontend/`: A [Next.js](https://nextjs.org/) 14 application with App Router, TypeScript, and Tailwind CSS.
+*   `supabase/`: A [Supabase](https://supabase.io/) project with the CLI, ready for local development, database migrations, and edge functions.
+*   `.documentation/`: A documentation site built with [Fumadocs](https://fumadocs.vercel.app/), allowing you to document your project from day one.
+*   `backend/`: An empty directory, reserved for a potential future backend service (e.g., a Node.js API) to maintain a clean project structure.
+*   **VS Code Integration**: The `.vscode/` directory and `base-template.code-workspace` file provide pre-configured settings and a multi-root workspace for a seamless development experience.
 
 ## Getting Started
 
-First, run the development server:
+Follow these instructions to get the template up and running on your local machine.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Make sure you have the following tools installed:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*   [Node.js](https://nodejs.org/en) (v18 or later)
+*   [pnpm](https://pnpm.io/installation)
+*   [Docker](https://www.docker.com/products/docker-desktop/) (must be running for Supabase local development)
+*   [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Installation
 
-## Learn More
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/base-template.git your-project-name
+    cd your-project-name
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Install dependencies for each project:**
+    This template does not use a single monorepo tool, so you need to install dependencies for the `frontend` and `documentation` projects separately.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    # Install frontend dependencies
+    cd frontend
+    pnpm install
+    cd ..
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    # Install documentation dependencies
+    cd .documentation
+    pnpm install
+    cd ..
+    ```
 
-## Deploy on Vercel
+### Running the Development Environment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+You will need to run each part of the application in a separate terminal.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  **Start Supabase:**
+    This command starts the Supabase services (Postgres, GoTrue, etc.) in Docker containers.
+    ```bash
+    supabase start
+    ```
+    Once it's running, it will output your local Supabase URL and API keys. You will need these for your frontend application.
+
+2.  **Run the Frontend:**
+    ```bash
+    cd frontend
+    # You may need to create a .env.local file and add your Supabase keys here
+    pnpm dev
+    ```
+    The frontend will be available at `http://localhost:3000`.
+
+3.  **Run the Documentation Site:**
+    ```bash
+    cd .documentation
+    pnpm dev
+    ```
+    The documentation site will be available at `http://localhost:3001`.
+
+## Using This Template
+
+To start building your own application based on this template:
+
+1.  **Rename the project:** Go through the `package.json` files in `frontend` and `.documentation` and update the `name` field.
+2.  **Configure Environment Variables:** Create a `.env.local` file in the `frontend` directory by copying `.env.example` (if it exists) and add your local Supabase API keys.
+3.  **Start Building:**
+    *   Modify the Next.js components in `frontend/src/`.
+    *   Create new database tables using Supabase migrations in `supabase/migrations/`.
+    *   Write your documentation in the `.documentation/content/` folder.
+
+---
+
+This template provides the structure. Now it's your turn to bring your ideas to life!
