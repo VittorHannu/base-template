@@ -5,15 +5,16 @@ import {
   onBackgroundMessage,
 } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-messaging-sw.js";
 
-// Your web app's Firebase configuration
+// Parse the configuration from the URL query parameters
+const urlParams = new URLSearchParams(location.search);
 const firebaseConfig = {
-  apiKey: "AIzaSyCSN0Cvu8XhVFkVv94o2TV0DjX-aW57MpU",
-  authDomain: "food-tracker-ad8e5.firebaseapp.com",
-  projectId: "food-tracker-ad8e5",
-  storageBucket: "food-tracker-ad8e5.appspot.com",
-  messagingSenderId: "657389030077",
-  appId: "1:657389030077:web:373095748bf4628aef45d4",
-  measurementId: "G-5NCHSQTKVP",
+  apiKey: urlParams.get('apiKey'),
+  authDomain: urlParams.get('authDomain'),
+  projectId: urlParams.get('projectId'),
+  storageBucket: urlParams.get('storageBucket'),
+  messagingSenderId: urlParams.get('messagingSenderId'),
+  appId: urlParams.get('appId'),
+  measurementId: urlParams.get('measurementId'),
 };
 
 // Initialize Firebase

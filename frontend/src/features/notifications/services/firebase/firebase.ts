@@ -4,13 +4,13 @@ import { getMessaging } from "firebase/messaging";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCSN0Cvu8XhVFkVv94o2TV0DjX-aW57MpU",
-  authDomain: "food-tracker-ad8e5.firebaseapp.com",
-  projectId: "food-tracker-ad8e5",
-  storageBucket: "food-tracker-ad8e5.appspot.com",
-  messagingSenderId: "657389030077",
-  appId: "1:657389030077:web:373095748bf4628aef45d4",
-  measurementId: "G-5NCHSQTKVP",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase

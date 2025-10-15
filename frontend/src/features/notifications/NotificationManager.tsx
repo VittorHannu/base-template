@@ -27,15 +27,30 @@ const NotificationManager = () => {
       if (permission === "granted") {
         console.log("Notification permission granted.");
 
-        const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js", {
+        // Construct the Firebase config object from environment variables
+        const firebaseConfigForSW = {
+          apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+          authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+          projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+          storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
+          messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+          appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
+          measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
+        };
+
+        // Create the URL for the service worker with the config as query parameters
+        const swUrl = `/firebase-messaging-sw.js?${new URLSearchParams(
+          firebaseConfigForSW
+        ).toString()}`;
+
+        const registration = await navigator.serviceWorker.register(swUrl, {
           type: "module",
           scope: "/",
         });
         console.log("Service worker registered.");
 
         const currentToken = await getToken(messaging, {
-          vapidKey:
-            "BH6H4n_KEzA3NxX4VfeWp2l_OE1hVQfQnKJFVG2bwrYb0C0EtyKfiOIwwYvwBjYK2lZ7yuRSPNfVJ-CsYmriprw", // Hardcoded VAPID key
+          vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
           serviceWorkerRegistration: registration,
         });
 
@@ -105,7 +120,7 @@ const NotificationManager = () => {
         <CardHeader>
           <CardTitle>1. Ativar Notificações</CardTitle>
           <CardDescription>
-            Clique aqui primeiro para permitir notificações e registrar seu dispositivo.
+            E ain, não se dorme na Europa.
           </CardDescription>
         </CardHeader>
         <CardContent>
