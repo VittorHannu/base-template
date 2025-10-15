@@ -1,0 +1,81 @@
+# Environment Variable Management
+
+This document outlines the strategy for managing environment variables for both the Next.js frontend and the Supabase backend.
+
+## Overview
+
+Due to the modular nature of this project, the frontend and backend have their own separate environment variable files. A single `.env` file in the root directory is not supported, as each framework (Next.js and Supabase CLI) looks for configuration in its own respective directory.
+
+- **`frontend/`**: Contains the Next.js application.
+- **`supabase/`**: Contains the Supabase functions and migrations.
+
+**IMPORTANT**: All `.env.*` files should be added to `.gitignore` to prevent committing sensitive information to version control.
+
+---
+
+## Using as a Template
+
+When starting a new project from this template, follow these steps to set up your environment variables.
+
+### Step 1: Create New Projects
+
+1.  **Firebase:** Create a new Firebase project for your application.
+    *   **Web App:** In your Firebase project, create a new Web App and find your client-side configuration (API key, auth domain, etc.).
+    *   **Service Account:** Generate a new private key (service account) for your backend. You will need the project ID, client email, and private key.
+2.  **Supabase:** Create a new Supabase project and find your project URL, anon key, and service role key.
+
+### Step 2: Update Local Environment Variables
+
+In both the `frontend` and `supabase` directories, you will find `.env.local.template` files. 
+
+1.  Copy these files to new `.env.local` files in their respective directories.
+2.  Fill in the placeholder values with the credentials from your new Firebase and Supabase projects.
+
+### Step 3: Update Production Environment Variables
+
+1.  **Vercel (Frontend):** Create a new Vercel project and add the frontend environment variables from your `frontend/.env.local` file to the Vercel dashboard.
+2.  **Supabase (Backend):** Add the backend environment variables from your `supabase/.env.local` file to your new Supabase project's function settings.
+
+### Step 4: App-Specific Naming & Code Changes
+
+This template uses a dynamic naming convention to support multiple applications. This is handled by the `source_app` parameter.
+
+**1. Backend Environment Variables:**
+
+The `send-fcm-notification` function uses the `source_app` value to determine which Firebase credentials to use. The environment variables in your `supabase/.env.local` (and in the Supabase dashboard) must follow this convention:
+
+`[APP_NAME]_FIREBASE_PROJECT_ID`
+`[APP_NAME]_FIREBASE_CLIENT_EMAIL`
+`[APP_NAME]_FIREBASE_PRIVATE_KEY`
+
+Replace `[APP_NAME]` with the name of your app, in uppercase and with hyphens replaced by underscores. For example, if your app name is `my-new-app`, your variables should be:
+
+`MY_NEW_APP_FIREBASE_PROJECT_ID`
+`MY_NEW_APP_FIREBASE_CLIENT_EMAIL`
+`MY_NEW_APP_FIREBASE_PRIVATE_KEY`
+
+**2. Frontend Code:**
+
+The `source_app` value is sent from the frontend. You need to update this value in your frontend code to match the prefix you used in your backend environment variables.
+
+-   **File:** `frontend/src/features/notifications/NotificationManager.tsx`
+-   **Change:** Update the hardcoded `app_name` and `source_app` values from `"food-tracker"` to your new app's name.
+
+**3. Hardcoded Icons (Optional but Recommended):**
+
+The `send-fcm-notification` function has hardcoded URLs for the notification `icon` and `badge`. You should update these to your own application's icons.
+
+-   **File:** `supabase/functions/send-fcm-notification/index.ts`
+-   **Change:** Update the `icon` and `badge` URLs in the `webpush.notification` object.
+
+---
+
+## Local Development Files
+
+### Frontend (`frontend/.env.local`)
+
+Copy from `frontend/.env.local.template`.
+
+### Backend (`supabase/.env.local`)
+
+Copy from `supabase/.env.local.template`.

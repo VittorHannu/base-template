@@ -7,6 +7,7 @@
     "pnpm-lock.yaml": true,
     "supabase/.temp": true,
     "supabase/.branches": true,
+    "**/.source": true,
     "**/.husky": true
   }
 }

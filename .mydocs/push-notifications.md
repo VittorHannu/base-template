@@ -1,0 +1,89 @@
+# Push Notification Setup Guide
+
+This guide explains how to set up and configure push notifications for your application.
+
+## Overview
+
+The push notification system has two main parts:
+
+1.  **Frontend (Next.js):** The user grants permission for notifications, and a unique token is saved to the database.
+2.  **Backend (Supabase Function):** A Supabase Edge Function (`send-fcm-notification`) is responsible for sending notifications to the registered devices via Firebase Cloud Messaging (FCM).
+
+---
+
+## Frontend Setup
+
+### 1. Environment Variables
+
+Add the following variables to your `frontend/.env.local` file for local development and to your Vercel project settings for production.
+
+```
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# Firebase (for client-side push notifications)
+NEXT_PUBLIC_FIREBASE_API_KEY=your-firebase-api-key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-firebase-auth-domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-firebase-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-firebase-storage-bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
+NEXT_PUBLIC_FIREBASE_APP_ID=your-firebase-app-id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your-firebase-measurement-id
+
+# VAPID key for push notifications
+NEXT_PUBLIC_VAPID_KEY=your-public-vapid-key
+```
+
+### 2. Code Changes
+
+When using this project as a template for a new app, you need to update the application name.
+
+-   **File:** `frontend/src/features/notifications/NotificationManager.tsx`
+-   **What to change:**
+    -   In the `handleRequestPermission` function, find the `upsert` call and change the `app_name` value from `"food-tracker"` to your new app's name.
+    -   In the `handleSendTestNotification` function, change the `source_app` value from `"food-tracker"` to your new app's name.
+
+**Recommendation:** To make this easier, you can define a constant for your app name at the top of the file and use it in both places.
+
+---
+
+## Backend Setup
+
+### 1. Environment Variables
+
+Add the following variables to your `supabase/.env.local` file for local development and to your Supabase project settings for production (**Settings > Functions**).
+
+These variables use a special naming convention to support multiple apps from the same backend.
+
+```
+# Supabase credentials (for admin tasks)
+SUPABASE_URL=your-supabase-url
+SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+
+# Firebase Service Account
+# Replace 'YOUR_APP_NAME' with your app-specific prefix (e.g., 'MY_AWESOME_APP')
+YOUR_APP_NAME_FIREBASE_PROJECT_ID=your-firebase-project-id
+YOUR_APP_NAME_FIREBASE_CLIENT_EMAIL=your-firebase-client-email
+YOUR_APP_NAME_FIREBASE_PRIVATE_KEY=your-firebase-private-key
+```
+
+**IMPORTANT:** The `YOUR_APP_NAME` prefix must match the `source_app` value you set in the frontend code, but in uppercase and with hyphens replaced by underscores.
+
+**Example:**
+-   If your `source_app` in the frontend is `my-new-app`.
+-   Your backend environment variables must be `MY_NEW_APP_FIREBASE_PROJECT_ID`, etc.
+
+### 2. Code Changes (Optional but Recommended)
+
+The notification `icon` and `badge` are currently hardcoded.
+
+-   **File:** `supabase/functions/send-fcm-notification/index.ts`
+-   **What to change:** In the `webpush.notification` object, update the `icon` and `badge` URLs to your own application's branding.
+
+---
+
+## Triggering Notifications
+
+To send a notification, you simply need to insert a new row into the `notifications_queue` table in your Supabase database. The `send-fcm-notification` function is automatically triggered by this event.
