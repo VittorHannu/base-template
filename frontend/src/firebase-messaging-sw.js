@@ -1,6 +1,10 @@
+import { precacheAndRoute } from "workbox-precaching";
+
 // Import the Firebase SDKs from the CDN
 import { initializeApp } from "firebase/app";
 import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
+
+precacheAndRoute(self.__SW_MANIFEST);
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

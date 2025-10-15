@@ -1,17 +1,13 @@
 import type { NextConfig } from "next";
-import withPWA from "@ducanh2912/next-pwa";
+import withSerwist from "@serwist/next";
 
-const pwaConfig = withPWA({
-  dest: "public",
+const withSerwistConfig = withSerwist({
   swSrc: "src/firebase-messaging-sw.js",
-  register: false,
-  swcMinify: false,
-  buildExcludes: [/middleware-manifest.json$/],
-  disable: process.env.NODE_ENV === "development",
+  swDest: "public/sw.js",
 });
 
 const nextConfig: NextConfig = {
   /* config options here */
 };
 
-export default pwaConfig(nextConfig);
+export default withSerwistConfig(nextConfig);
