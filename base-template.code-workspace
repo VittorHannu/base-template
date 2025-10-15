@@ -1,0 +1,32 @@
+{
+  "folders": [
+    {
+      "name": "Frontend",
+      "path": "frontend"
+    },
+    {
+      "name": "Backend",
+      "path": "backend"
+    },
+    {
+      "name": "Supabase",
+      "path": "supabase"
+    },
+    {
+      "name": "Documentation",
+      "path": ".documentation"
+    },
+    {
+      "name": "Project Config",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/backend": true,
+      "**/frontend": true,
+      "**/supabase": true,
+      "**/.documentation": true
+    }
+  }
+}
