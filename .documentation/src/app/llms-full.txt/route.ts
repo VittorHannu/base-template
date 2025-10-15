@@ -1,10 +1,12 @@
-import { getLLMText, source } from '@/lib/source';
-
-export const revalidate = false;
+import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const scan = source.getPages().map(getLLMText);
-  const scanned = await Promise.all(scan);
+  // TODO: Re-implement this route to combine and process text from both userSource and developerSource.
+  // The original implementation was disabled during the multi-source refactoring.
 
-  return new Response(scanned.join('\n\n'));
+  return new NextResponse('', {
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  });
 }
