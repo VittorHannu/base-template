@@ -1,8 +1,8 @@
-import { precacheAndRoute } from "workbox-precaching";
 
 // Import the Firebase SDKs from the CDN
 import { initializeApp } from "firebase/app";
 import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
+import { precacheAndRoute } from "workbox-precaching";
 
 precacheAndRoute(self.__SW_MANIFEST);
 
