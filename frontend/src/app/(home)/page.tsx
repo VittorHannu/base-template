@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <>
       <div className="p-4">
-        <h1 className="text-2xl font-bold">Home Page</h1>
+        <h1 className="text-2xl font-bold">Try to solve service worker for push notifications</h1>
         <p className="mt-4">Welcome to the new Panel-based App!</p>
         <PanelLink to="about">
           <Button className="mt-6">About This App</Button>
